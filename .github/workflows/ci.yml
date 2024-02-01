@@ -45,12 +45,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Nom de la branche
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})"
       - name: création de la release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ env.BRANCH_NAME }}
+          release_name: Release ${{ env.BRANCH_NAME }}
           draft: false
           prerelease: false
