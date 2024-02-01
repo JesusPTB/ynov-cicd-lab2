@@ -9,25 +9,34 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up de Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
-      - run: pip install flake8
-      - run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-      - run: flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name : Lint du code
+        run: |
+          pip install flake8
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
   build:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up de Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
-      - run: pip install -r code-appli-python/vote/requirements.txt
-      - run: zip -r code-appli-python/app.zip code-appli-python
-      - uses: actions/upload-artifact@v4
+      - name: installation de librairies python
+        run: pip install -r code-appli-python/vote/requirements.txt
+      - name: zip du code
+        run: zip -r code-appli-python/app.zip code-appli-python
+      - name: upload d'artéfacts
+        uses: actions/upload-artifact@v4
         with:
           name: app
           path: code-appli-python/app.zip
@@ -36,4 +45,13 @@ jobs:
 #    needs: build
 #    runs-on: ubuntu-latest
 #    steps:
-#      -
+#      - name: Create release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: ${{ github.ref }}
+#          release_name: Release ${{ github.ref }}
+#          draft: false
+#          prerelease: false
