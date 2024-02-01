@@ -65,7 +65,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app
-          path: ./app.zip
+          path: .
       - name: upload d'artéfacts
         uses: actions/upload-release-asset@v1
         env:
