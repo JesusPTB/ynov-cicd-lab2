@@ -61,6 +61,11 @@ jobs:
           release_name: Release ${{ steps.get_version.outputs.release_number }}
           draft: false
           prerelease: false
+      - name: récupératio de l'artéfact
+        uses: actions/download-artifact@v4
+        with:
+          name: app
+          path: ./app.zip
       - name: upload d'artéfacts
         uses: actions/upload-release-asset@v1
         env:
