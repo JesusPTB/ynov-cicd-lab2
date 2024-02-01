@@ -34,7 +34,8 @@ jobs:
       - name: installation de librairies python
         run: pip install -r code-appli-python/vote/requirements.txt
       - name: zip du code
-        run: zip -r code-appli-python/app.zip code-appli-python
+        run: zip -r app.zip code-appli-python
+        working-directory: .
       - name: upload d'artéfacts
         uses: actions/upload-artifact@v4
         with:
