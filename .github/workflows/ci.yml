@@ -54,3 +54,12 @@ jobs:
           release_name: Release 1.0.0 # TODO: trouver un autre moyen
           draft: false
           prerelease: false
+      - name: upload d'artéfacts
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: code-appli-python/app.zip
+          asset_name: app.zip
+          asset_content_type: application/zip
