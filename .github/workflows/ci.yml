@@ -32,7 +32,9 @@ jobs:
         with:
           python-version: '3.8'
       - name: installation de librairies python
-        run: pip install -r code-appli-python/vote/requirements.txt
+        run: |
+          cd code-appli-python/vote
+          pip install -r requirements.txt
       - name: zip du code
         run: zip -r app.zip code-appli-python
         working-directory: .
